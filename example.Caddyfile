@@ -1,7 +1,11 @@
 {
-  auto_https off
+	debug
+	auto_https off
+	default_bind 0.0.0.0
+	storage file_system {
+		root /var/lib/app/caddy
+	}
 }
-
 
 (header-security) {
 	header {
@@ -25,6 +29,9 @@
 *.fly.local {
 	import header-security
 
+	@tailscale dynamic_client_ip static 100.64.0.0/10
+	abort @tailscale
+
 	@dns host dns.fly.local
 	handle @dns {
 		import dns-service
@@ -34,3 +41,35 @@
 		abort
 	}
 }
+
+# Optional: Expose to public
+# *.fly.<your_domain>.com {
+# 	import header-security
+
+# 	tls {
+# 			dns cloudflare {env.CF_API_TOKEN}
+# 			protocols tls1.3
+# 	}
+
+# 	@dns host dns.<your_domain>.com
+# 	handle @dns {
+# 		import dns-service
+# 	}
+
+# 	handle {
+# 			respond "not found" 404
+# 	}
+# }
+
+# http://*.fly.<your_domain>.com {
+# 	import header-security
+
+# 	@dnshost litellm.fly.<your_domain>.com
+# 	handle @dns {
+# 			import dns-service
+# 	}
+
+# 	handle {
+# 			respond "not found" 404
+# 	}
+# }

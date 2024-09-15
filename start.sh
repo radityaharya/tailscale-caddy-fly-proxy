@@ -1,11 +1,10 @@
 #!/bin/sh
 
-# Ensure necessary directories exist
-mkdir -p /var/lib/app/tailscale /var/run/tailscale /var/lib/app/adguardhome
+mkdir -p /var/lib/app/tailscale /var/run/tailscale /var/lib/app/adguardhome /var/lib/app/caddy
 
 /app/tailscaled --state=/var/lib/app/tailscale/tailscaled.state --socket=/var/run/tailscale/tailscaled.sock &
 
-until /app/tailscale up --authkey=${TAILSCALE_AUTHKEY} --hostname=internal
+until /app/tailscale up --authkey=${TAILSCALE_AUTHKEY} --hostname=internal --ssh=true --advertise-exit-node=true
 do
     sleep 0.1
 done
