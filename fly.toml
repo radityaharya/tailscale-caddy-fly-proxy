@@ -1,0 +1,42 @@
+app = 'fly-router'
+primary_region = 'sin'
+kill_signal = 'SIGINT'
+kill_timeout = '5s'
+
+[build]
+
+[[mounts]]
+  source = 'appstate'
+  destination = '/var/lib/app/'
+
+[[services]]
+  http_checks = []
+  internal_port = 80
+  processes = ["app"]
+  min_machines_running = 1
+  protocol = "tcp"
+  script_checks = []
+
+  [services.concurrency]
+    hard_limit = 25
+    soft_limit = 20
+    type = "connections"
+
+  [[services.ports]]
+    handlers = ["http"]
+    port = 80
+
+  [[services.ports]]
+    handlers = ["tls", "http"]
+    port = 443
+
+  [[services.tcp_checks]]
+    grace_period = "4s"
+    interval = "15s"
+    restart_limit = 0
+    timeout = "2s"
+
+[[vm]]
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1

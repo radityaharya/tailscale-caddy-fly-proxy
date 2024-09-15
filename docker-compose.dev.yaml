@@ -1,0 +1,18 @@
+services:
+  caddy:
+    build: .
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+    env_file:
+      - .env
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - $PWD/Caddyfile:/etc/caddy/Caddyfile
+      - $PWD/site:/site
+      - $PWD/caddy_data:/data
+      - $PWD/caddy_config:/config
+      - $PWD/certs:/certs

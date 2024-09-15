@@ -1,0 +1,36 @@
+{
+  auto_https off
+}
+
+
+(header-security) {
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "DENY"
+		X-XSS-Protection "1; mode=block"
+		Referrer-Policy "no-referrer"
+	}
+}
+
+(token-check) {
+	@unauthorized not header X-Auth-Token {env.AUTH_TOKEN}
+	respond @unauthorized "Unauthorized access. Please provide a valid X-Auth-Token." 403
+}
+
+(dns-service) {
+	reverse_proxy 127.0.0.1:8053
+}
+
+*.fly.local {
+	import header-security
+
+	@dns host dns.fly.local
+	handle @dns {
+		import dns-service
+	}
+
+	handle {
+		abort
+	}
+}
