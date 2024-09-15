@@ -6,8 +6,8 @@ This is a simple proxy that routes services that are in the [tailnet](https://ta
 
 1. Clone this repository
 ```bash
-git clone https://github.com/radityaharya/tailscale-caddy-flyio-router.git
-cd tailscale-caddy-flyio-router
+git clone https://github.com/radityaharya/tailscale-caddy-fly-proxy.git
+cd tailscale-caddy-fly-proxy
 ```
 
 2. Copy Caddyfile.example to Caddyfile
