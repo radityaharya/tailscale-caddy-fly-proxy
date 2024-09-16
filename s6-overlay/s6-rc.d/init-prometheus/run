@@ -1,0 +1,2 @@
+#!/command/with-contenv sh
+exec /usr/bin/prometheus --config.file=/app/monitor/prometheus-config.yml

@@ -2,8 +2,21 @@
 	debug
 	auto_https off
 	default_bind 0.0.0.0
+	servers {
+		metrics
+	}
+	admin localhost:2019
 	storage file_system {
 		root /var/lib/app/caddy
+	}
+	log {
+		output file /var/lib/app/log/caddy/caddy_main.log {
+			roll_size 100MiB
+			roll_keep 5
+			roll_keep_for 10d
+		}
+		format json
+		level INFO
 	}
 }
 

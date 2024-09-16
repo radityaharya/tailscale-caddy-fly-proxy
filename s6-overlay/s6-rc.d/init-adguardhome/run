@@ -1,0 +1,2 @@
+#!/command/with-contenv sh
+exec /app/AdGuardHome -c /var/lib/app/adguardhome/AdGuardHome.yaml -w /var/lib/app/adguardhome

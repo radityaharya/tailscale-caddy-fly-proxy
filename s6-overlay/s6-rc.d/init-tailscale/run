@@ -1,0 +1,2 @@
+#!/command/with-contenv sh
+/app/tailscaled --state=/var/lib/app/tailscale/tailscaled.state --socket=/var/run/tailscale/tailscaled.sock

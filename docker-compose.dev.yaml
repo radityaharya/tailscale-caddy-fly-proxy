@@ -4,6 +4,8 @@ services:
     restart: unless-stopped
     cap_add:
       - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
     env_file:
       - .env
     ports:
@@ -11,8 +13,4 @@ services:
       - "443:443"
       - "443:443/udp"
     volumes:
-      - $PWD/Caddyfile:/etc/caddy/Caddyfile
-      - $PWD/site:/site
-      - $PWD/caddy_data:/data
-      - $PWD/caddy_config:/config
-      - $PWD/certs:/certs
+      - ./mount:/var/lib/app
