@@ -2,8 +2,7 @@
 FROM caddy:2.8.4-builder AS builder
 RUN xcaddy build \
   --with github.com/caddy-dns/cloudflare \
-  --with github.com/tuzzmaniandevil/caddy-dynamic-clientip \
-  --with github.com/mholt/caddy-l4
+  --with github.com/tuzzmaniandevil/caddy-dynamic-clientip
 
 # Prepare AdGuard binary
 FROM alpine:3.14 AS adguard
