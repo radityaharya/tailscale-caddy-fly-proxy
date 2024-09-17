@@ -2,7 +2,8 @@
 FROM caddy:2.8.4-builder AS builder
 RUN xcaddy build \
   --with github.com/caddy-dns/cloudflare \
-  --with github.com/tuzzmaniandevil/caddy-dynamic-clientip
+  --with github.com/tuzzmaniandevil/caddy-dynamic-clientip \
+  --with github.com/mholt/caddy-l4
 
 # Prepare AdGuard binary
 FROM alpine:3.14 AS adguard
@@ -55,10 +56,13 @@ COPY --from=docker.io/tailscale/tailscale:stable /usr/local/bin/tailscaled /app/
 COPY --from=docker.io/tailscale/tailscale:stable /usr/local/bin/tailscale /app/tailscale
 
 # Monitoring
+COPY --from=docker.io/grafana/grafana:main /usr/share/grafana /usr/share/grafana
 COPY --from=docker.io/grafana/promtail:main /usr/bin/promtail /usr/bin/promtail
 COPY --from=docker.io/grafana/loki:main /usr/bin/loki /usr/bin/loki
 COPY --from=docker.io/prom/prometheus:main /bin/prometheus /usr/bin/prometheus
 COPY --from=docker.io/prom/node-exporter:latest /bin/node_exporter /usr/bin/node_exporter
+COPY --from=docker.io/prom/alertmanager:latest /bin/alertmanager /usr/bin/alertmanager
+COPY --from=docker.io/prom/pushgateway:latest /bin/pushgateway /usr/bin/pushgateway
 COPY --from=ghcr.io/henrywhitaker3/adguard-exporter:latest /adguard-exporter /usr/bin/adguard-exporter
 
 # Create necessary directories and set permissions

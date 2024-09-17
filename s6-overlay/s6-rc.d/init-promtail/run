@@ -1,2 +1,2 @@
 #!/command/with-contenv sh
-exec /usr/bin/promtail -config.file=/app/monitor/promtail-config.yml
+exec /usr/bin/promtail -config.file=/app/monitor/promtail-config.yml | sed 's/^/[promtail] /'

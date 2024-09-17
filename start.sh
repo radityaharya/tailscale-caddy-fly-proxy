@@ -1,7 +1,9 @@
 #!/bin/sh
 
-mkdir -p /var/lib/app/tailscale /var/run/tailscale /var/lib/app/adguardhome /var/lib/app/caddy
-
+mkdir -p /var/lib/app/tailscale /var/run/tailscale /var/lib/app/adguardhome /var/lib/app/caddy /var/lib/app/grafana
+cp -r /usr/share/grafana /var/lib/app 
+rm /var/lib/app/grafana/conf/defaults.ini
+cp /app/monitor/grafana-config.ini /var/lib/app/grafana/conf/defaults.ini
 
 # ref: https://community.fly.io/t/is-it-possible-to-use-my-own-init/12082/4
 if [ "$$" -eq 1 ]; then

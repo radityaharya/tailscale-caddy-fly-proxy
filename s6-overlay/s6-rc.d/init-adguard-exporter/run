@@ -1,2 +1,2 @@
 #!/command/with-contenv sh
-exec /usr/bin/adguard-exporter
+exec /usr/bin/adguard-exporter | sed 's/^/[adguard-exporter] /'

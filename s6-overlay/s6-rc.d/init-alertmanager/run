@@ -1,0 +1,2 @@
+#!/command/with-contenv sh
+exec /usr/bin/alertmanager --config.file=/app/monitor/alertmanager-config.yml | sed 's/^/[alertmanager] /'

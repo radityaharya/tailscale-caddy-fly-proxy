@@ -1,0 +1,2 @@
+#!/command/with-contenv sh
+exec /var/lib/app/grafana/bin/grafana server --homepath /var/lib/app/grafana | sed 's/^/[grafana] /'

@@ -39,6 +39,18 @@
 	reverse_proxy 127.0.0.1:8053
 }
 
+(prometheus-service) {
+	reverse_proxy 127.0.0.1:9090
+}
+
+(loki-service) {
+	reverse_proxy 127.0.0.1:3100
+}
+
+(grafana-service) {
+	reverse_proxy 127.0.0.1:3001
+}
+
 *.fly.local {
 	import header-security
 
@@ -48,6 +60,16 @@
 	@dns host dns.fly.local
 	handle @dns {
 		import dns-service
+	}
+
+	@prometheus host prometheus.fly.local
+	handle @prometheus {
+		import prometheus-service
+	}
+
+	@loki host loki.fly.local
+	handle @loki {
+		import loki-service
 	}
 
 	handle {

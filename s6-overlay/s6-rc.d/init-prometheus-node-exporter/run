@@ -1,2 +1,2 @@
 #!/command/with-contenv sh
-exec /usr/bin/node_exporter
+exec /usr/bin/node_exporter --web.listen-address=127.0.0.1:9100 | sed 's/^/[node_exporter] /'

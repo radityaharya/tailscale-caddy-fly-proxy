@@ -1,2 +1,2 @@
 #!/command/with-contenv sh
-exec /usr/bin/prometheus --config.file=/app/monitor/prometheus-config.yml
+exec /usr/bin/prometheus --config.file=/app/monitor/prometheus-config.yml --web.listen-address=127.0.0.1:9090 --storage.tsdb.path=/var/lib/app/prometheus | sed 's/^/[prometheus] /'
